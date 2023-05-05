@@ -1,5 +1,5 @@
 <template>
-  <button class="jet-brains" :class="variant">
+  <button class="jet-brains" :class="variant" @click="handleClick">
     <div class="button-wrapper">
       <span class="text-span">{{ text }}</span>
       <span class="text-span">{{ text }}</span>
@@ -9,11 +9,40 @@
 
 <script>
 export default {
-  props: ["text", "variant"],
+  // props: ["text", "variant", "href", "action"],
+  props: {
+    text: {
+      type: String,
+    },
+    variant: {
+      type: String,
+    },
+    href: {
+      type: String,
+    },
+    action: {
+      type: Object,
+      default: {
+        handler: () => {
+          return "";
+        },
+      },
+    },
+  },
+  methods: {
+    handleClick() {
+      if (this.href) {
+        window.location = this.href;
+        console.log("lickk");
+      } else {
+        this.action.handler();
+      }
+    },
+  },
 };
 </script>
 
-<style scoped>
+<style >
 button {
   background: none;
   border: none;
@@ -31,7 +60,7 @@ button {
 
   .button-wrapper {
     height: 200%;
-    transition: transform 0.2s;
+    transition: transform 0.5s;
   }
 
   .text-span {

@@ -6,9 +6,17 @@
     </div>
 
     <nav class="generic-slide-down">
+      <action-button
+        variant="secondary"
+        :text="projectButtonData.text"
+        @click="projectButtonData.action.handler()"
+      />
       <action-button variant="secondary" text="resume" />
-      <action-button variant="secondary" text="projects" />
-      <action-button variant="primary" text="contact" />
+      <action-button
+        variant="primary"
+        href="mailto:seeniolabode8734@gmail.com"
+        text="contact"
+      />
     </nav>
   </header>
 </template>
@@ -23,15 +31,42 @@ export default {
     SiteLoader,
     ActionButton,
   },
+  inject: ["getDisplayProjects"],
   data() {
     return {
       siteLoaded: false,
     };
   },
+  computed: {
+    projectButtonData() {
+      if (this.displayProjects) {
+        return {
+          text: "home",
+          action: {
+            handler: () => {
+              this.$eventBus.emit("display-home");
+            },
+          },
+        };
+      } else {
+        return {
+          text: "projects",
+          action: {
+            handler: () => {
+              this.$eventBus.emit("display-projects");
+            },
+          },
+        };
+      }
+    },
+    displayProjects() {
+      return this.getDisplayProjects();
+    },
+  },
 };
 </script>
 
-<style scoped>
+<style >
 header {
   display: flex;
   justify-content: space-between;

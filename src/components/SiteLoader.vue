@@ -21,14 +21,16 @@
 <script>
 import { gsap } from "gsap";
 
+import { lerp } from "../utils/utils";
+
 const loaderTl = gsap.timeline();
 
 export default {
   name: "SiteLoader",
   data() {
     return {
-      loadPercent: 0,
-      loadInterval: null,
+      time: 0,
+      duration: 10000,
     };
   },
   watch: {
@@ -38,15 +40,40 @@ export default {
       }
     },
   },
+  computed: {
+    loadPercent() {
+      if (this.time > 9900) {
+        return 100;
+      } else {
+        return Math.floor((this.time / this.duration) * 100);
+      }
+    },
+  },
   methods: {
     load() {
-      this.loadInterval = setInterval(() => {
-        if (this.loadPercent != 100) {
-          this.loadPercent++;
-        } else {
-          clearInterval(this.loadInterval);
+      let prev = 0;
+
+      const easeLoad = () => {
+        if (!(this.time >= this.duration) && !(this.time > 9900)) {
+          let time = this.time;
+          let duration = this.duration;
+
+          this.time = time + prev;
+          let lerpAmount =
+            (time / duration) * 100 < 80
+              ? Math.random() * 0.01
+              : Math.random() * 0.5;
+          let change = lerp(time, duration, lerpAmount);
+          prev = change;
+
+          setTimeout(() => {
+            easeLoad();
+            console.log(change);
+          }, change);
         }
-      }, 50);
+      };
+
+      easeLoad();
     },
   },
   mounted() {
@@ -97,8 +124,8 @@ export default {
         containerElement.classList.remove("loader-container");
         containerElement.classList.add("logo-container");
         layoutElement.classList.remove("loading");
-
         this.$emit("site-loaded");
+        this.$eventBus.emit("site-loaded");
       })
       .pause();
   },

@@ -1,14 +1,18 @@
-module.exports = {
-    "postcss-initial": {reset: 'inherited'},
-    "postcss-autoreset": {
-        reset: {
-            margin: 0,
-            padding: 0,
-            borderRadius: 0,
-        }
-    },
-    "postcss-preset-env": { stage: 2 },
-    "postcss-nested": {},
-    "postcss-import": {},
-}
+// module.exports = {
+//     plugins: {
+//         // "postcss-preset-env": {stage: 2},
+//     }
+// }
 
+module.exports = {
+    plugins: {
+        "autoprefixer": {},
+        "postcss-nesting": {},
+        "postcss-nested": {},
+        "postcss-import": {},
+        "postcss-initial": { reset: 'inherited' },
+        "postcss-preset-env": { stage: 2 },
+        "postcss-for": {},
+        "postcss-calc": {},
+    }
+}

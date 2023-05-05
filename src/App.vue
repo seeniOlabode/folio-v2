@@ -1,18 +1,26 @@
 <template>
   <div class="layout-container loading">
     <site-header />
-    <site-home />
-    <footer>
-      <span class="jet-brains">Lagos, Nigeria</span>
-    </footer>
+    <site-home v-if="loaded" v-show="!displayProjects" />
+    <site-footer v-if="loaded" v-show="!displayProjects" />
+    <site-projects v-if="loaded && displayProjects" />
   </div>
   <site-background />
+  <custom-cursor />
 </template>
 
 <script>
 import SiteHeader from "./components/SiteHeader.vue";
 import SiteBackground from "./components/SiteBackground.vue";
 import SiteHome from "./components/SiteHome.vue";
+import CustomCursor from "./components/shared/CustomCursor.vue";
+import SiteFooter from "./components/SiteFooter.vue";
+import SiteProjects from "./components/SiteProjects.vue";
+
+import Lenis from "@studio-freight/lenis";
+
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/all";
 
 export default {
   name: "App",
@@ -20,6 +28,54 @@ export default {
     SiteHeader,
     SiteBackground,
     SiteHome,
+    CustomCursor,
+    SiteFooter,
+    SiteProjects,
+  },
+  provide() {
+    return {
+      getDisplayProjects: () => {
+        return this.displayProjects;
+      },
+    };
+  },
+  data() {
+    return {
+      loaded: false,
+      displayProjects: false,
+    };
+  },
+  mounted() {
+    const lenis = new Lenis({
+      duration: 2,
+    });
+
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+
+    lenis.on("scroll", ScrollTrigger.update);
+
+    gsap.ticker.add((time) => {
+      lenis.raf(time * 1000);
+    });
+
+    requestAnimationFrame(raf);
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    this.$eventBus.on("site-loaded", () => {
+      this.loaded = true;
+    });
+    this.$eventBus.on("display-projects", () => {
+      this.displayProjects = true;
+    });
+    this.$eventBus.on("display-home", () => {
+      this.displayProjects = false;
+    });
   },
 };
 </script>
@@ -43,18 +99,12 @@ export default {
   position: relative;
 
   &.loading {
-    > main {
+    main {
       display: none;
     }
 
-    > footer {
+    footer {
       display: none;
-    }
-  }
-
-  > footer {
-    > span {
-      font-size: 14px;
     }
   }
 }
