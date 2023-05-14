@@ -32,8 +32,7 @@ export default {
   methods: {
     handleClick() {
       if (this.href) {
-        window.location = this.href;
-        console.log("lickk");
+        this.$router.push(this.href);
       } else {
         this.action.handler();
       }
@@ -42,7 +41,7 @@ export default {
 };
 </script>
 
-<style >
+<style scoped>
 button {
   background: none;
   border: none;
@@ -53,14 +52,13 @@ button {
   border: solid 1px var(--near-white);
   border-radius: 14px;
   cursor: pointer;
-
   color: var(--near-white);
 
   text-transform: uppercase;
 
   .button-wrapper {
     height: 200%;
-    transition: transform 0.5s;
+    transition: transform 0.3s;
   }
 
   .text-span {

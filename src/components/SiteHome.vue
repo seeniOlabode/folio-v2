@@ -37,8 +37,9 @@
         <p class="author hero-description generic-slide-down">
           I have close to 2 years of experience in Frontend Web Development, and
           I’ve worked at
-          <a class="site-link" href="https://qucoon.com/">Qucoon</a> and
-          <a class="site-link" href="https://univaciti.com">Univaciti</a> as an
+          <site-link href="https://qucoon.com/">Qucoon</site-link>
+          and
+          <site-link href="https://univaciti.com">Univaciti</site-link> as an
           Intern.
         </p>
         <p class="author hero-description generic-slide-down action-section">
@@ -56,11 +57,13 @@
 
 <script>
 import ActionButton from "./shared/ActionButton.vue";
+import SiteLink from "./shared/SiteLink.vue";
 
 export default {
   name: "SiteHome",
   components: {
     ActionButton,
+    SiteLink,
   },
 };
 </script>

@@ -1,9 +1,7 @@
 <template>
   <div class="layout-container loading">
     <site-header />
-    <site-home v-if="loaded" v-show="!displayProjects" />
-    <site-footer v-if="loaded" v-show="!displayProjects" />
-    <site-projects v-if="loaded && displayProjects" />
+    <router-view />
   </div>
   <site-background />
   <custom-cursor />
@@ -12,9 +10,7 @@
 <script>
 import SiteHeader from "./components/SiteHeader.vue";
 import SiteBackground from "./components/SiteBackground.vue";
-import SiteHome from "./components/SiteHome.vue";
 import CustomCursor from "./components/shared/CustomCursor.vue";
-import SiteFooter from "./components/SiteFooter.vue";
 import SiteProjects from "./components/SiteProjects.vue";
 
 import Lenis from "@studio-freight/lenis";
@@ -27,9 +23,7 @@ export default {
   components: {
     SiteHeader,
     SiteBackground,
-    SiteHome,
     CustomCursor,
-    SiteFooter,
     SiteProjects,
   },
   provide() {

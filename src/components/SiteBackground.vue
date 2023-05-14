@@ -1,5 +1,5 @@
 <template>
-  <div class="site-background nippo">
+  <div class="site-background nippo" ref="bgElement">
     <!-- <div
       class="background-row"
       v-for="(mark, i) in waterMarkText"
@@ -25,8 +25,6 @@
 </template>
 
 <script>
-import { gsap } from "gsap";
-
 export default {
   name: "SiteBackground",
   data() {
@@ -45,12 +43,6 @@ export default {
     textArray() {
       return this.text.split("");
     },
-  },
-  mounted() {
-    gsap.to(".char", {
-      color: "#080807",
-      stagger: 0.02,
-    });
   },
 };
 </script>

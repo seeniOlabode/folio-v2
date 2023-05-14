@@ -1,15 +1,12 @@
 <template>
   <header :class="{ 'loader-header': !siteLoaded }">
     <site-loader @site-loaded="siteLoaded = true" />
-    <div class="time jet-brains generic-slide-down">
-      18<span class="time-colon">:</span>04 WAT
-    </div>
-
+    <site-time />
     <nav class="generic-slide-down">
       <action-button
         variant="secondary"
-        :text="projectButtonData.text"
-        @click="projectButtonData.action.handler()"
+        text="projects"
+        @click="() => $router.push('projects')"
       />
       <action-button variant="secondary" text="resume" />
       <action-button
@@ -24,12 +21,14 @@
 <script>
 import SiteLoader from "./SiteLoader.vue";
 import ActionButton from "./shared/ActionButton.vue";
+import SiteTime from "./SiteTime.vue";
 
 export default {
   name: "SiteHeader",
   components: {
     SiteLoader,
     ActionButton,
+    SiteTime,
   },
   inject: ["getDisplayProjects"],
   data() {
@@ -38,27 +37,7 @@ export default {
     };
   },
   computed: {
-    projectButtonData() {
-      if (this.displayProjects) {
-        return {
-          text: "home",
-          action: {
-            handler: () => {
-              this.$eventBus.emit("display-home");
-            },
-          },
-        };
-      } else {
-        return {
-          text: "projects",
-          action: {
-            handler: () => {
-              this.$eventBus.emit("display-projects");
-            },
-          },
-        };
-      }
-    },
+    projectButtonData() {},
     displayProjects() {
       return this.getDisplayProjects();
     },
@@ -66,7 +45,7 @@ export default {
 };
 </script>
 
-<style >
+<style>
 header {
   display: flex;
   justify-content: space-between;

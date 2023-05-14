@@ -10,7 +10,12 @@
 
       <div class="visual generic-slide-up">
         <div class="outer">
-          <div class="inner" :style="{ width: loadPercent + '%' }"></div>
+          <div
+            class="inner"
+            :style="{
+              transform: `translateX(${-(100 - loadPercent) + '%'})`,
+            }"
+          ></div>
         </div>
         <span class="percentage jet-brains">{{ loadPercent }}%</span>
       </div>
@@ -21,7 +26,7 @@
 <script>
 import { gsap } from "gsap";
 
-import { lerp } from "../utils/utils";
+import { lerp, select } from "../utils/utils";
 
 const loaderTl = gsap.timeline();
 
@@ -68,7 +73,6 @@ export default {
 
           setTimeout(() => {
             easeLoad();
-            console.log(change);
           }, change);
         }
       };
@@ -79,44 +83,30 @@ export default {
   mounted() {
     this.load();
     const wrapperElement = this.$refs.wrapper;
+    const layoutElement = select(".layout-container");
     const wrapperBox = wrapperElement.getBoundingClientRect();
 
-    console.log(wrapperBox);
-
-    console.log(
-      window.innerHeight,
-      window.innerWidth,
-      wrapperBox.height,
-      wrapperBox.width
-    );
-
-    let halfLeft = window.innerWidth / 2 - wrapperBox.width / 2;
-    let halfTop = window.innerHeight / 2 - wrapperBox.height / 2;
+    let halfLeft = layoutElement.clientWidth / 2 - wrapperBox.width / 2;
+    let halfTop = layoutElement.clientHeight / 2 - wrapperBox.height / 2;
 
     gsap.set(wrapperElement, {
-      left: halfLeft,
-      top: halfTop,
+      x: halfLeft,
+      y: halfTop,
     });
 
     loaderTl
       .to(".visual", {
-        delay: 0.5,
-        yPercent: 200,
-        duration: 0.5,
-        ease: "ease",
+        yPercent: 150,
       })
       .set(".visual", {
         display: "none",
       })
       .to(wrapperElement, {
-        left: 50,
-        top: 40,
+        x: 0,
+        y: 0,
         duration: 1,
         fontSize: 18,
         ease: "power4.in",
-      })
-      .set(wrapperElement, {
-        position: "static",
       })
       .call(() => {
         const containerElement = document.querySelector(".loader-container");
@@ -124,6 +114,7 @@ export default {
         containerElement.classList.remove("loader-container");
         containerElement.classList.add("logo-container");
         layoutElement.classList.remove("loading");
+        this.$router.push("home");
         this.$emit("site-loaded");
         this.$eventBus.emit("site-loaded");
       })
@@ -136,10 +127,11 @@ export default {
 .logo-text-wrapper {
   display: block;
 }
+
 .loader-container {
   .wrapper {
-    position: fixed;
     overflow: hidden;
+    width: fit-content;
   }
 
   .logo {
@@ -170,6 +162,8 @@ export default {
       .inner {
         height: 100%;
         background: var(--near-white);
+        width: 100%;
+        transform: translateX(-100%);
       }
     }
   }

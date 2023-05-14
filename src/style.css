@@ -31,48 +31,6 @@ h1 {
   font-family: Author;
 }
 
-a.site-link {
-  color: white;
-  text-decoration: none;
-  display: inline-block;
-  position: relative;
-  overflow-x: hidden;
-  top: 4px;
-  font-weight: 600;
-  &::before {
-    content: " ";
-    position: absolute;
-    height: 1.5px;
-    bottom: 1px;
-    left: 0;
-    right: 0;
-    background-color: var(--near-white);
-    transition: transform 0.8s;
-  }
-
-  &::after {
-    content: " ";
-    position: absolute;
-    height: 1.5px;
-    bottom: 1px;
-    left: 0;
-    right: 0;
-    background-color: var(--near-white);
-    transform: translateX(-300%);
-    transition: transform 0.8s;
-  }
-
-  &:hover {
-    &::before {
-      transform: translateX(300%);
-    }
-
-    &::after {
-      transform: translateX(0);
-    }
-  }
-}
-
 /* END TYPOGRAPHY */
 
 /* COLOR */
