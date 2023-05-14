@@ -1,6 +1,7 @@
 <template>
   <div class="time jet-brains generic-slide-down">
-    {{ hour }}<span class="time-colon">:</span>{{ minute }} WAT
+    {{ hour }}<span class="time-colon">:</span
+    >{{ minute >= 10 ? 10 : "0" + minute }} WAT
   </div>
 </template>
 
@@ -25,7 +26,7 @@ export default {
       let time = new Date();
       this.hour = time.getHours();
       this.minute = time.getMinutes();
-    }, 60000);
+    }, 1000);
   },
   beforeUnmount() {
     clearInterval(this.timeInterval);

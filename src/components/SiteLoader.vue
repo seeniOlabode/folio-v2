@@ -124,6 +124,9 @@ export default {
 </script>
 
 <style>
+@custom-media --medium-viewport (max-width: 800px);
+@custom-media --small-viewport (max-width: 650px);
+
 .logo-text-wrapper {
   display: block;
 }
@@ -176,6 +179,21 @@ export default {
 
   .logo {
     font-size: 18px;
+    white-space: nowrap;
+  }
+}
+
+@media (--small-viewport) {
+  .logo-container {
+    transition: opacity 0.5s;
+
+    .logo {
+      font-size: 14px;
+    }
+  }
+
+  #app:has(.site-main-nav.open) .logo-container {
+    opacity: 0;
   }
 }
 </style>

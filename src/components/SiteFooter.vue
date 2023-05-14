@@ -8,7 +8,7 @@
       >
     </div>
     <div class="skills-section">
-      <h4 class="nippo skills-heading">Skills</h4>
+      <h4 class="author skills-heading">Skills</h4>
       <div class="marquee">
         <div class="marquee-row">
           <span class="skill jet-brains" v-for="skill in skills" :key="skill">
@@ -73,6 +73,8 @@ footer {
 
   .skills-heading {
     text-align: right;
+    text-transform: uppercase;
+    letter-spacing: 1px;
   }
 
   .marquee {
@@ -122,6 +124,10 @@ footer {
       }
     }
 
+    .marquee-row {
+      z-index: 20;
+    }
+
     .marquee-row:nth-child(1) {
       animation: marqueeAnimationFirst 15s infinite linear;
     }
@@ -129,6 +135,7 @@ footer {
     .marquee-row:nth-child(2) {
       margin-top: 10px;
       animation: marqueeAnimationSecond 15s infinite linear;
+      z-index: 20;
     }
 
     .marquee-row:hover {
@@ -152,6 +159,58 @@ footer {
   }
   100% {
     transform: translateX(0%);
+  }
+}
+
+@custom-media --medium-viewport (max-width: 800px);
+@custom-media --small-viewport (max-width: 650px);
+
+@media (--medium-viewport) {
+  footer {
+    .credit,
+    .location {
+      font-size: 12px;
+    }
+  }
+}
+
+@media (--small-viewport) {
+  footer {
+    flex-direction: column;
+
+    > * {
+      width: 100%;
+    }
+
+    .footer-text {
+      order: 1;
+      margin-top: 100px;
+      justify-content: center;
+    }
+
+    .skills-section {
+      .skills-heading {
+        text-align: center;
+        font-size: 20px;
+      }
+
+      .marquee {
+        width: auto;
+        position: absolute;
+        left: 0;
+        right: 0;
+
+        .marquee-row:nth-child(1) {
+          animation: marqueeAnimationFirst 30s infinite linear;
+          animation-duration: 30s;
+        }
+
+        .marquee-row:nth-child(2) {
+          margin-top: 10px;
+          animation-duration: 30s;
+        }
+      }
+    }
   }
 }
 </style>

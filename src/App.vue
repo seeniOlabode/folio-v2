@@ -75,6 +75,8 @@ export default {
 </script>
 
 <style>
+@custom-media --medium-viewport (max-width: 800px);
+
 #app {
   height: 100vh;
   width: 100vw;
@@ -101,5 +103,14 @@ export default {
       display: none;
     }
   }
+}
+
+@media (--medium-viewport) {
+  #app {
+    padding: 20px 15px;
+  }
+}
+
+@media (--small-viewport) {
 }
 </style>

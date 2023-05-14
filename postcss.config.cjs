@@ -14,5 +14,6 @@ module.exports = {
         "postcss-preset-env": { stage: 2 },
         "postcss-for": {},
         "postcss-calc": {},
+        "postcss-custom-media": {},
     }
 }

@@ -1,8 +1,12 @@
 <template>
-  <button class="jet-brains" :class="variant" @click="handleClick">
+  <button
+    class="jet-brains"
+    :class="[variant, customClass]"
+    @click="handleClick"
+  >
     <div class="button-wrapper">
-      <span class="text-span">{{ text }}</span>
-      <span class="text-span">{{ text }}</span>
+      <span class="text-span">{{ text }} <slot></slot></span>
+      <span class="text-span">{{ text }}<slot></slot></span>
     </div>
   </button>
 </template>
@@ -28,6 +32,10 @@ export default {
         },
       },
     },
+    customClass: {
+      type: String,
+      required: false,
+    },
   },
   methods: {
     handleClick() {
@@ -42,6 +50,8 @@ export default {
 </script>
 
 <style scoped>
+@custom-media --small-viewport (max-width: 650px);
+
 button {
   background: none;
   border: none;
@@ -53,18 +63,21 @@ button {
   border-radius: 14px;
   cursor: pointer;
   color: var(--near-white);
+  text-align: center;
 
   text-transform: uppercase;
 
   .button-wrapper {
     height: 200%;
     transition: transform 0.3s;
+    text-align: center;
   }
 
   .text-span {
     display: flex;
     height: 50%;
     align-items: center;
+    justify-content: center;
   }
 
   &.primary {
@@ -79,6 +92,12 @@ button {
 button:hover {
   .button-wrapper {
     transform: translateY(-50%);
+  }
+}
+
+@media (--small-viewport) {
+  button {
+    font-size: 12px;
   }
 }
 </style>
