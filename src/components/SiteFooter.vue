@@ -189,6 +189,7 @@ footer {
     }
 
     .skills-section {
+      margin-bottom: 50px;
       .skills-heading {
         text-align: center;
         font-size: 20px;

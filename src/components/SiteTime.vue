@@ -1,7 +1,7 @@
 <template>
   <div class="time jet-brains generic-slide-down">
     {{ hour }}<span class="time-colon">:</span
-    >{{ minute >= 10 ? 10 : "0" + minute }} WAT
+    >{{ minute >= 10 ? minute : "0" + minute }} WAT
   </div>
 </template>
 

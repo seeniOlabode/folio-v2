@@ -53,6 +53,7 @@ export default {
 @custom-media --small-viewport (max-width: 650px);
 
 button {
+  user-select: none;
   background: none;
   border: none;
   overflow: hidden;
